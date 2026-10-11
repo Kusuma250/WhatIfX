@@ -22,8 +22,7 @@ The application generates best-case, realistic-case, and worst-case scenarios, a
 - JavaScript
 - Vite
 - CSS
-- Recharts (if retained in the final implementation, otherwise remove this item)
-
+- **Chart Visualization:** CSS-based comparison chart
 ## 🚀 Getting Started
 
 ### Prerequisites
