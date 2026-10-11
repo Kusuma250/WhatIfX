@@ -9,8 +9,18 @@ function App() {
   const [result, setResult] = useState(null);
   const [history, setHistory] = useState([]);
   const [whatIfHours, setWhatIfHours] = useState("");
+  const [completedHours, setCompletedHours] = useState("");
    const currentOutcome = result ? result.realisticCase : 0;
    const whatIfOutcome = result ? result.whatIfRealisticCase : 0;
+   const completed = Number(completedHours) || 0;
+
+const progressPercent =
+  result && result.totalHours > 0
+    ? Math.min(
+        Math.round((completed / result.totalHours) * 100),
+        100
+      )
+    : 0;
    const maxOutcome = Math.max(
   currentOutcome,
   whatIfOutcome,
@@ -389,6 +399,47 @@ const improvementPercent =
 
 </div>
            
+<div className="progress-card">
+  <h3>🎯 Goal Progress Tracker</h3>
+
+  <p>Track the hours you have completed toward your goal.</p>
+
+  <label>Hours completed so far</label>
+
+  <input
+    type="number"
+    min="0"
+    max={result.totalHours}
+    value={completedHours}
+    onChange={(e) => {
+  const value = e.target.value;
+
+  if (
+  value === "" ||
+  (Number(value) >= 0 &&
+    Number(value) <= result.totalHours)
+) {
+  setCompletedHours(value);
+}
+}}
+    placeholder="Example: 10"
+  />
+
+  <div className="progress-info">
+    <strong>{progressPercent}% complete</strong>
+    <span>
+      {Math.min(completed, result.totalHours)} / {result.totalHours} hours
+    </span>
+  </div>
+
+  <div className="progress-track">
+    <div
+      className="progress-fill"
+      style={{ width: `${progressPercent}%` }}
+    />
+  </div>
+</div>
+
             <div className="explanation">
 
               <h3>
